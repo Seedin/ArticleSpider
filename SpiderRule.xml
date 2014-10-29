@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+ <rule name="福州旅游网" sourceId="0">
+  <url>http://lyj.fuzhou.gov.cn/lyjzwgk/lydt/index.htm</url>
+  <reAbstract>&lt;li&gt;.+?&lt;span&gt;\[(.+?)\].+?href="(.+?)".+?&gt;(.+?)&lt;/a&gt;.+?&lt;/li&gt;</reAbstract>
+  <reArticle>&lt;div class="content-boxtext"&gt;(.+?)&lt;/div&gt;\s*&lt;div class="content-boxbottom"&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>FuZhouSpider</module>
+  <regionId>130</regionId>
+  <spiderName></spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+  	<timePot0>08:00:00</timePot0>
+  	<timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="泰宁旅游网" sourceId="0">
+  <url>http://www.tnly.net/article/news/</url>
+  <reAbstract>&lt;li&gt;&lt;em&gt;(.+?)&lt;/em&gt;.+?·&lt;a href="(.+?)".+?&gt;(.+?)&lt;/a&gt;&lt;/li&gt;</reAbstract>
+  <reArticle>&lt;div id="content"&gt;(.+?)&lt;/div&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>TaiNingSpider</module>
+  <regionId>203248</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+  	<timePot0>8:00:00</timePot0>
+  	<timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="中国泰宁网" sourceId="0">
+  <url>http://www.fjtn.com/index.php?m=content&amp;c=index&amp;a=lists&amp;catid=9</url>
+  <reAbstract>&lt;div class="userR"&gt;\s+?&lt;h4&gt;&lt;a href="([^"]+?)"[^&gt;]+?&gt;([^&lt;]+?)&lt;/a&gt;&lt;/h4&gt;\s+?&lt;p&gt;&lt;span&gt;(.+?)&lt;/span&gt;&lt;/p&gt;\s+?&lt;/div&gt;</reAbstract>
+  <reArticle>&lt;div class="content"&gt;(.+?)&lt;/div&gt;\s+?&lt;div class="clear"&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="([^"]+?)"[^&gt;]+?&gt;</reImage>
+  <module>TaiNingFuJianSpider</module>
+  <regionId>203248</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="河南旅游资讯-商丘旅游" sourceId="0">
+  <url>http://www.hnta.cn/destination/city_4114</url>
+  <reAbstract>&lt;li&gt;&lt;span class="dian_font"&gt;.+?&lt;a href="(.+?)".+?title="(.+?)"&gt;</reAbstract>
+  <reArticle>&lt;div class="zixun_xq_title2"&gt;.+?添加时间：(.+?) 来源.+?&lt;div class="zixun_xq_con"&gt;(.+?)&lt;/div&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>ShangQiuHeNanSpider</module>
+  <regionId>930</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="商丘旅游局" sourceId="0">
+  <url>http://www.sqta.gov.cn/lydtList.aspx?categoryId=20131012673540</url>
+  <reAbstract>&lt;div class="main-rightdaliebiao"&gt;.+?&lt;a href="(.+?)".+?&gt;(.+?)&lt;/a&gt;.+?&lt;span class="zt2".+?&gt;.*?([\d-]+?)&lt;/span&gt;</reAbstract>
+  <reArticle>&lt;div class="weizhangneirong"&gt;(.+?)&lt;/div&gt;</reArticle>
+  <reImage>&lt;img.+?src="(.+?)".+?/&gt;</reImage>
+  <module>ShangQiuSpider</module>
+  <regionId>930</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="艺龙-福州旅游资讯" sourceId="0">
+  <url>http://trip.elong.com/fuzhou/zixun/</url>
+  <reAbstract>&lt;li&gt;&lt;span&gt;([\d-]+?)&lt;/span&gt;&lt;a href="(.+?)".+?&gt;(.+?)&lt;/a&gt;</reAbstract>
+  <reArticle>&lt;div class="article-content"&gt;(.+?)&lt;/div&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?data-original="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>FuZhouYiLongSpider</module>
+  <regionId>130</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="德化旅游网" sourceId="0">
+  <url>http://www.dehuata.net/list/50/1.shtml</url>
+  <reAbstract>&lt;li&gt;&lt;a href="(.+?)".+?title="(.+?)".+?&lt;/a&gt;&lt;span&gt;(.+?)&lt;/span&gt;&lt;/li&gt;</reAbstract>
+  <reArticle>&lt;div class="news_view_content_news"&gt;(.+?)&lt;/div&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>DeHuaSpider</module>
+  <regionId>203258</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="敦化旅游网" sourceId="0">
+  <url>http://www.dhlyw.com/index.php?m=Article&amp;a=index&amp;id=100</url>
+  <reAbstract>&lt;li&gt;&lt;a href="([^"]+?)"&gt;([^&lt;]+?)&lt;/a&gt;\s*?&lt;span class="pub_time"[^&lt;]+?&lt;/span&gt;\s*?&lt;/li&gt;</reAbstract>
+  <reArticle>&lt;div class="ep-info cDGray"&gt;[^\d]+?([\d-]+?)[^\d-]+?([\d:]+?)[^\d:]+?.+?&lt;div id="endText".+?&gt;(.+?)&lt;/div&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>DunHuaSpider</module>
+  <regionId>203014</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="融水旅游" sourceId="0">
+  <url>http://www.lzrsly.com/list.aspx?id=622176876034</url>
+  <reAbstract>&lt;dt class="title"&gt;&lt;a href="[^"]+?"&gt;[^&lt;]+?&lt;/a&gt;\s*?&lt;a href="([^"]+?)"&gt;([^&lt;]+?)&lt;/a&gt;.+?发表于：&lt;span&gt;([\d-]+?)&lt;/span&gt;</reAbstract>
+  <reArticle>&lt;div class="content"&gt;(.+?)&lt;/div&gt;\s*?&lt;div&gt;\s*?&lt;/div&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>RongShuiSpider</module>
+  <regionId>202206</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>1</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="泉州旅游资讯网" sourceId="0">
+  <url>http://www.qztour.com.cn/Article_List.aspx?class_id=5109</url>
+  <reAbstract>&lt;tr&gt;\s*?&lt;td[^&gt;]+?&gt;&lt;a href="([^"]+?)".+?&gt;([^&lt;]+?)&lt;/a&gt;&lt;/td&gt;\s*?&lt;td[^&gt;]+?&gt;([\d-]+?)&lt;/td&gt;\s*?&lt;/tr&gt;</reAbstract>
+  <reArticle>&lt;table[^&gt;]+?class="kujia"&gt;\s*?&lt;tr&gt;.+?&lt;/tr&gt;\s*?&lt;tr&gt;.+?&lt;/tr&gt;\s*?&lt;tr&gt;.+?&lt;/tr&gt;\s*?&lt;tr&gt;\s*?&lt;td[^&gt;]+?&gt;(.+?)&lt;/td&gt;\s*&lt;/tr&gt;\s*?&lt;tr&gt;&lt;td[^&gt;]+?&gt;[^&lt;]*?&lt;/td&gt;&lt;/tr&gt;\s*?&lt;/table&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>QuanZhouTourSpider</module>
+  <regionId>134</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="欣欣旅游-澳门旅游资讯" sourceId="0">
+  <url>http://news.cncn.com/macao/</url>
+  <reAbstract>&lt;li&gt;&lt;em&gt;([\d-]+?)&lt;/em&gt;[^&lt;]*?&lt;a href="([^"]+?)"[^&gt;]*?&gt;([^&lt;]+?)&lt;/a&gt;&lt;/li&gt;</reAbstract>
+  <reArticle>&lt;div id="content"&gt;(.+?)&lt;/div&gt;\s*&lt;div class="share_con"&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>AoMenCncnSpider</module>
+  <regionId>287</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="艺龙-澳门旅游资讯" sourceId="0">
+  <url>http://trip.elong.com/news/did-334/</url>
+  <reAbstract>&lt;li&gt;&lt;span&gt;([\d-]+?)&lt;/span&gt;&lt;a href="(.+?)".+?&gt;(.+?)&lt;/a&gt;</reAbstract>
+  <reArticle>&lt;div class="article-content"&gt;(.+?)&lt;/div&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?data-original="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>FuZhouYiLongSpider</module>
+  <regionId>287</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>1</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="马来西亚旅游局" sourceId="0">
+  <url>http://www.tourismmalaysia.cn/page/zh-CN/news-zh</url>
+  <reAbstract>&lt;li&gt;&lt;a href="([^"]+?)"&gt;(.+?)&lt;/a&gt;&lt;/li&gt;</reAbstract>
+  <reArticle>&lt;div class="w600"&gt;(.+?)&lt;/div&gt;</reArticle>
+  <reImage>&lt;img.+?src="(.+?)"[^&gt;]+?&gt;</reImage>
+  <module>MalaysiaSpider</module>
+  <regionId>376</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="无锡灵山官网-景区资讯" sourceId="0">
+  <url>http://lsly.chinalingshan.com/Travel/Topics/zxgg/index.aspx</url>
+  <reAbstract>&lt;li&gt;&lt;a\s+?href="([^"]+?)"[^&gt;]+?&gt;([^&lt;]+?)&lt;/a&gt;&lt;span&gt;([\d-]+?)&lt;/span&gt;&lt;/li&gt;</reAbstract>
+  <reArticle>&lt;div class="scenic_news"&gt;\s*?&lt;p[^&lt;]+?&lt;/p&gt;\s*?&lt;p[^&lt;]+?&lt;/p&gt;\s*?&lt;p.+?&lt;/p&gt;(.+?)&lt;table[^&gt;]+?class="newsRele"&gt;</reArticle>
+  <reImage>&lt;[Ii][Mm][Gg].+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>LingShanSpider</module>
+  <regionId>14274</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+  <rule name="无锡灵山官网-景区动态" sourceId="0">
+  <url>http://lsly.chinalingshan.com/jituanlvylist.aspx?NodeID=4</url>
+  <reAbstract>&lt;li&gt;&lt;a\s+?href="([^"]+?)"[^&gt;]+?&gt;([^&lt;]+?)&lt;/a&gt;&lt;span&gt;([\d-]+?)&lt;/span&gt;&lt;/li&gt;</reAbstract>
+  <reArticle>&lt;div class="scenic_news"&gt;\s*?&lt;p[^&lt;]+?&lt;/p&gt;\s*?&lt;p[^&lt;]+?&lt;/p&gt;\s*?&lt;p.+?&lt;/p&gt;(.+?)&lt;table[^&gt;]+?class="newsRele"&gt;</reArticle>
+  <reImage>&lt;[Ii][Mm][Gg].+?src="(.+?)"[^&gt;]*?&gt;</reImage>
+  <module>LingShanSpider</module>
+  <regionId>14274</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="本溪旅游" sourceId="0">
+  <url>http://www.bxtourism.net/news.asp</url>
+  <reAbstract>&lt;td&gt;&lt;span[^&gt;]+?&gt;.+?&lt;A\s+?href="([^"]+?)"[^&gt;]+?&gt;&lt;FONT[^&gt;]+?&gt;([^&lt;]+?)&lt;/FONT&gt;&lt;/A&gt;.+?&lt;/span&gt;&lt;/td&gt;</reAbstract>
+  <reArticle>&lt;TBODY&gt;\s+?&lt;TR&gt;.+?&lt;/TR&gt;\s+?&lt;TR&gt;.+?&lt;/TR&gt;\s+?&lt;TR&gt;.+?发布时间：&lt;SPAN[^&gt;]+?&gt;([^&lt;]+?)&lt;/SPAN&gt;.+?&lt;/TR&gt;\s+?&lt;TR&gt;\s+?&lt;TD[^&gt;]+?&gt;(.+?)&lt;/TD&gt;\s+?&lt;/TR&gt;\s+?&lt;/TBODY&gt;</reArticle>
+  <reImage>&lt;IMG[^&gt;]+?src="([^"]+?)"[^&gt;]*?&gt;</reImage>
+  <module>BenXiSpider</module>
+  <regionId>33</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="恒仁旅游网" sourceId="0">
+  <url>http://www.hrlyw.com/news.asp</url>
+  <reAbstract>&lt;tr&gt;\s+?&lt;td[^&gt;]+?&gt;&lt;a[^&gt;]+?href="([^"]+?)"[^&gt;]+?&gt;·([^&lt;]+?)&lt;/a&gt;&lt;/td&gt;\s+?&lt;td[^&gt;]+?&gt;([\d-]+?)&lt;/td&gt;\s+?&lt;/tr&gt;</reAbstract>
+  <reArticle>&lt;td class="duanluo"&gt;\s*?&lt;div[^&lt;]+?&lt;/div&gt;(.+?)&lt;/td&gt;</reArticle>
+  <reImage>&lt;IMG[^&gt;]+?src="([^"]+?)"[^&gt;]*?&gt;</reImage>
+  <module>BenXiHengRenSpider</module>
+  <regionId>33</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+ <rule name="福州旅游资讯网" sourceId="0">
+  <url>http://www.fztour.gov.cn/ajax/InfoManageHandler.ashx?act=getnewslist&amp;pageSize={0}&amp;pageIndex={1}</url>
+  <reAbstract>http://www.fztour.gov.cn/ajax/InfoManageHandler.ashx?act=getdetail&amp;ID={0}</reAbstract>
+  <reArticle>&lt;p style="text-align:center;"&gt;&lt;span&gt;&lt;img src="{0}" /&gt;&lt;/span&gt;&lt;/p&gt;</reArticle>
+  <reImage>&lt;img[^&gt;]+?src="([^"]+?)"[^&gt;]+?&gt;</reImage>
+  <module>FuZhouTourSpider</module>
+  <regionId>130</regionId>
+  <spiderName>jishutest</spiderName>
+  <isValid>0</isValid>
+  <minPage>-1</minPage>
+  <maxPage>-1</maxPage>
+  <wakeTime>
+    <timePot0>8:00:00</timePot0>
+    <timePot1>13:00:00</timePot1>
+  </wakeTime>
+ </rule>
+</config>

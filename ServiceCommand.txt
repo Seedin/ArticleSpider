@@ -1,0 +1,20 @@
+安装服务
+python SpiderService.py install
+
+让服务自动启动
+python SpiderService.py --startup auto install 
+
+启动服务
+python SpiderService.py start
+
+重启服务
+python SpiderService.py restart
+
+停止服务
+python SpiderService.py stop
+
+删除/卸载服务
+python SpiderService.py remove
+
+执行测试脚本
+python SpiderTest.py
