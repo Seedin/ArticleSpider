@@ -60,6 +60,7 @@ class SpiderTask(threading.Thread):
 		spider = spiderClass()
 		if spider.ReadRule(rule) == False:
 			return False
+		spider.newArticleChecker = self.storer
 		articles = []
 		try:
 			articles = spider.CatchArticles()
@@ -67,8 +68,8 @@ class SpiderTask(threading.Thread):
 			logging.warn('{0}获取文章失败，异常信息为：{1}'.format(rule['name'], str(e)))
 		logging.info('成功从{0}获取{1}篇文章'.format(rule['name'], len(articles)))
 		for article in articles:
-			if not self.storer.NewArticleCheck(article):
-				continue
+			# if not self.storer.NewArticleCheck(article):
+			# 	continue
 			for imageInfo in article['images']:
 				self.storer.DumpImage(imageInfo)
 				# logging.debug(imageInfo)

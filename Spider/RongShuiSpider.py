@@ -2,7 +2,7 @@ import Spider
 import re
 import logging
 import datetime
-import urllib.request
+# import urllib.request
 
 class RongShuiSpider(Spider.Spider):
 	"""融水旅游 Spider"""
@@ -21,6 +21,9 @@ class RongShuiSpider(Spider.Spider):
  				title = x[1],
  				time = datetime.datetime.strptime(x[2],'%Y-%m-%d')
 			)
+			if not self.CheckNewArticle(article):
+				logging.debug('文章源{0}并非新文章。'.format(article['url']))
+				continue
 			html = self.DownLoadHtml(article['url'], '文章页{0}访问失败，异常信息为:{1}')
 			if html == None:
 				continue
@@ -31,7 +34,8 @@ class RongShuiSpider(Spider.Spider):
 				content = y
 				for z in recImage.findall(content):
 					imageCount += 1
-					imageUrl = Spider.ComposeUrl(article['url'], urllib.parse.quote(z) if z[0] in ['/', '.'] else z)
+					# imageUrl = Spider.ComposeUrl(article['url'], urllib.parse.quote(z) if z[0] in ['/', '.'] else z)
+					imageUrl = Spider.ComposeUrl(article['url'], z)
 					image = self.DownLoadImage(imageUrl, '图片{0}提取失败，异常信息为:{1}')
 					if image == None:
 						continue

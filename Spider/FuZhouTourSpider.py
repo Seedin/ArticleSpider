@@ -25,6 +25,9 @@ class FuZhouTourSpider(Spider.Spider):
 				url = self.reAbstract.format(x['NEWS_ID']),
  				title = x['TITLE']
 				)
+				if not self.CheckNewArticle(article):
+					logging.debug('文章源{0}并非新文章。'.format(article['url']))
+					continue
 				html = self.DownLoadHtml(article['url'], '文章明细接口{0}访问失败，异常信息为:{1}')
 				if html == None:
 					continue

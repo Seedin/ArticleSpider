@@ -3,6 +3,8 @@ import urllib.request
 import logging
 import re
 import os
+import datetime
+import socket
 from functools import reduce
 from PIL import Image
 
@@ -11,6 +13,7 @@ class Spider:
 	imageTotal = 0	
 	def __init__(self):
 		self.articles = []
+		self.newArticleChecker = None
 	def ReadRule(self, rule):
 		if rule == None \
 		or not isinstance(rule, dict) \
@@ -41,10 +44,15 @@ class Spider:
 		opener = urllib.request.build_opener()
 		opener.addheaders = self.headers
 		urllib.request.install_opener(opener)
-		self.reCss = r'class=".+?"'
-		self.reHerf = r'<[aA][^<>]+?href="(.+?)"[^<>]*?>(.+?)</[aA]>'
-		self.reBlank = r'&ensp;|&emsp;|&nbsp;|\n|\t;'
-		self.reStyle = r'style="[^"]*?"'
+		socket.setdefaulttimeout(60)
+		self.reCss = r'class=["\'][^"\']*?["\']'
+		self.reHerf = r'<[aA][^>]+?href="([^"]+?)"[^>]*?>((?:[^<]|<(?!/[aA]>))+?)</[aA]>'
+		self.reBlank = r'&ensp;|&emsp;|&nbsp;|\n|\t|[\u0008-\u000D\u00a0-\u00ff\u2028\u2029\u3000\uFEFF]'
+		self.reStyle = r'style=["\'][^"\']*?["\']'
+		self.reComment = r'<!--(?:[^-]|-(?!->))*?-->'
+		self.reScript = r'<script[^>]*?>(?:[^<]|<(?!/script>))*?</script>'
+		self.reCssStyle = r'<style[^>]*?>(?:[^<]|<(?!/style>))*?</style>'
+		self.reHeadx = r'<[hH]\d[^>]*?>((?:[^<]|<(?!/[hH]\d>))+?)</[hH]\d>'
 		return True
 	def CatchArticles(self):
 		return []
@@ -59,12 +67,15 @@ class Spider:
 		return html
 	def DownLoadImage(self, url, logFormat):
 		image = dict(imageUrl = url)
-		fileName = url[url.rfind('/') + 1 :]
+		fileName = url[url.rfind('/') + 1 :].split('?')[0]
 		iDot = fileName.rfind('.')
 		imageFormat = fileName[iDot:] if iDot > 0 else '.jpg'
 		imageLocal = self.temp + str(Spider.imageTotal) + imageFormat
+		# downloadUrl = url[: url.rfind('/') + 1] + urllib.parse.quote(fileName)
+		downloadUrl = urllib.parse.quote(url, safe='/:?&=-')
+		# logging.debug(downloadUrl)
 		try:
-			urllib.request.urlretrieve(url, imageLocal)
+			urllib.request.urlretrieve(downloadUrl, imageLocal)
 		except Exception as e:
 			logging.warn(logFormat.format(url, str(e)))
 			return None
@@ -100,6 +111,23 @@ class Spider:
 		article['sourceId'] = self.sourceId
 		logging.info(logFormat.format(article['url']))
 		self.articles.append(article)
+	def CheckNewArticle(self, article):
+		if not article \
+		or not isinstance(article, dict) \
+		or not 'url' in article \
+		or not 'time' in article:
+			return False
+		currentTime = datetime.datetime.strptime(datetime.datetime.now().strftime('%Y-%m-%d'),'%Y-%m-%d')
+		timeDelta = currentTime - article['time']
+		if timeDelta.days > 365:
+			return False
+		if self.newArticleChecker == None:
+			return True
+		try:
+			return self.newArticleChecker.NewArticleCheck(article)
+		except Exception as e:
+			logging.warn('文章源{0}路径检查失败，异常为{1}'.format(article['url'], str(e)))
+			return False				
 	def ClearArticles(self):
 		if not self.articles \
 		or len(self.articles) == 0:
@@ -108,13 +136,22 @@ class Spider:
 		recHerf = re.compile(self.reHerf, re.DOTALL)
 		recBlank = re.compile(self.reBlank, re.DOTALL)
 		recStyle = re.compile(self.reStyle, re.DOTALL)
+		recComment = re.compile(self.reComment, re.DOTALL)
+		recScript = re.compile(self.reScript, re.DOTALL)
+		recCssStyle = re.compile(self.reCssStyle, re.DOTALL)
+		recHeadx = re.compile(self.reHeadx, re.DOTALL)
 		for article in self.articles:
 			if not 'content' in article:
 				continue
 			article['content'] = recCss.sub(ClearExternalCss, article['content'])
+			article['content'] = recScript.sub(ClearExternalScript, article['content'])
+			article['content'] = recCssStyle.sub(ClearExternalCssStyle, article['content'])
 			article['content'] = recHerf.sub(ClearExternalHerf, article['content'])
 			article['content'] = recBlank.sub(ClearExternalBlank, article['content'])
 			article['content'] = recStyle.sub(ClearExternalStyle, article['content'])
+			article['content'] = recComment.sub(ClearExternalComment, article['content'])
+			article['content'] = recHeadx.sub(ClearExternalHeadx, article['content'])
+			article['content'] = article['content'].strip()
 		return True
 	def ClearTempImages(self):
 		for root, dirs, files in os.walk(self.temp, topdown = True):
@@ -133,7 +170,7 @@ def ReplaceImage(matchobj):
 	imageInfo = list(filter(
 		lambda info: 'imageUrl' in info \
 			and 'imageDumpUrl' in info \
-			and info['imageUrl'].endswith(remoteImage[remoteImage.find('/') + 1:]),
+			and info['imageUrl'].endswith(remoteImage[remoteImage.find('/') + 1:].lstrip('./')),
 		imagesCache
 	))
 	# logging.debug(imageInfo)
@@ -160,19 +197,37 @@ def ClearExternalStyle(matchobj):
 	"""Clear External Style In Article Content"""
 	return ''
 
+def ClearExternalComment(matchobj):
+	"""Clear External Comment In Article Content"""
+	return ''
+
+def ClearExternalScript(matchobj):
+	"""Clear External Script In Article Content"""
+	return ''
+
+def ClearExternalCssStyle(matchobj):
+	"""Clear External CssStyle In Article Content"""
+	return ''
+
+def ClearExternalHeadx(matchobj):
+	"""Clear External h1-h5 In Article Content"""
+	hxText = matchobj.group(1)
+	return hxText
+
 def ComposeUrl(currentUrl, relativeUrl):
 	"""Assemble  Relative Url And Current Url Into Absolute Url"""
 	head = relativeUrl[0]
 	localSecs = currentUrl.split('/')
 	absoluteUrl = relativeUrl
 	if head == '/':
-		absoluteUrl = '/'.join(localSecs[0:3]) + relativeUrl
+		absoluteUrl = '/'.join(localSecs[0:3] + [relativeUrl[1:].lstrip('/.')])
 	elif head == '.':
 		index = relativeUrl.find('/')
 		if len(list(filter(lambda c : c == '.', relativeUrl[0:index]))) == index:
 			absoluteUrl = '/'.join(localSecs[0:len(localSecs) - index]) + relativeUrl[index:]
-	elif not relativeUrl.startswith('http://'):
-		absoluteUrl = '/'.join(localSecs[0:len(localSecs) - 1]) + '/' + relativeUrl
+	elif not relativeUrl.startswith('http://') \
+	and not relativeUrl.startswith('https://'):
+		absoluteUrl = '/'.join(localSecs[0:len(localSecs) - 1] + [relativeUrl])
 	# logging.debug(absoluteUrl)
 	return absoluteUrl
 
@@ -189,7 +244,7 @@ def ConvertImageToJpg(image):
 	imageFormat = image['imageLocal'][dotIndex + 1:].lower()
 	if imageFormat in ['jpg', 'jpeg']:
 		return True
-	elif imageFormat in ['png', 'bmp']:
+	elif imageFormat in ['png', 'bmp', 'gif']:
 		im = Image.open(image['imageLocal'])			
 		try:
 			imageNew = image['imageLocal'][0:dotIndex + 1] + 'jpg'

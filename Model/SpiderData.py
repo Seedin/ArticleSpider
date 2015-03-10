@@ -32,7 +32,8 @@ class SpiderDataHelper:
 									'Content': article['content'],
 									'Author': article['author'],
 									'ModifyUser': article['author'],
-									'ModifyTime': datetime.datetime.now()
+									'ModifyTime': datetime.datetime.now(),
+									'Status': 1
 								})
 				session.query(SpiderEntity.Cms_InformationRegion) \
 						.filter_by(InformationId = infoSource.InformationId) \

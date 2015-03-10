@@ -27,6 +27,9 @@ class BenXiSpider(Spider.Spider):
 			imageCount = 0
 			for y in recArticle.findall(html):
 				article['time'] = datetime.datetime.strptime(y[0],'%Y-%m-%d %H:%M:%S')
+				if not self.CheckNewArticle(article):
+					logging.debug('文章源{0}并非新文章。'.format(article['url']))
+					continue
 				content = y[1]
 				for z in recImage.findall(content):
 					imageCount += 1

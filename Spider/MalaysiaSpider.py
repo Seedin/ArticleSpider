@@ -16,10 +16,16 @@ class MalaysiaSpider(Spider.Spider):
 			return self.articles
 		for x in recAbstract.findall(html):
 			article = dict(
-				time = datetime.datetime.strptime('2014-10-01','%Y-%m-%d'),
+				time = datetime.datetime.strptime(
+					'{0}-01-01'.format(
+						datetime.datetime.today().year),
+					'%Y-%m-%d'),
 				url = Spider.ComposeUrl(self.url, x[0]),
  				title = x[1].strip('<br/>')
 			)
+			if not self.CheckNewArticle(article):
+				logging.debug('文章源{0}并非新文章。'.format(article['url']))
+				continue
 			html = self.DownLoadHtml(article['url'], '文章页{0}访问失败，异常信息为:{1}')
 			if html == None:
 				continue
